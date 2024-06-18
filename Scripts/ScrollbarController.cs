@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScrollbarController : MonoBehaviour
 {
     [SerializeField] RectTransform text;
+    [SerializeField] RectTransform container;
     Vector3 prevPos;
 
     private void Start()
@@ -14,16 +15,26 @@ public class ScrollbarController : MonoBehaviour
         ResetPos();
     }
 
-    private void LateUpdate()
+    public void LateUpdate()
     {
         if (transform.localPosition == prevPos)
             return;
+        
+        float height = 0f;
+        if (text != null)
+            height = text.rect.height - 440f;
 
-        float delta = transform.localPosition.y - prevPos.y;
+        if (height > 0f)
+        {
+            float y = height * (transform.localPosition.y / -14.75f);
 
-        Vector2 newPosition = text.anchoredPosition;
-        newPosition.y = text.anchoredPosition.y - delta * 50f;
-        text.anchoredPosition = newPosition;
+            if(container != null)
+            {
+                Vector2 newPosition = container.anchoredPosition;
+                newPosition.y = y;
+                container.anchoredPosition = newPosition;
+            }
+        }
 
         prevPos = transform.localPosition;
     }
@@ -31,5 +42,11 @@ public class ScrollbarController : MonoBehaviour
     public void ResetPos()
     {
         transform.localPosition = Vector3.zero;
+        if(container != null)
+        {
+            Vector2 newPosition = container.anchoredPosition;
+            newPosition.y = 0f;
+            container.anchoredPosition = newPosition;
+        }
     }
 }

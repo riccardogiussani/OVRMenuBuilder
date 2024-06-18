@@ -38,4 +38,9 @@ public class Tracker : MonoBehaviour
 
         transform.position += control;
     }
+
+    public void InjectPositionTracker(GameObject go)
+    {
+        positionTracker = go;
+    }
 }

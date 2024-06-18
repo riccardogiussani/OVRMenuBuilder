@@ -53,7 +53,7 @@ public class ImageScrollableController : MonoBehaviour
 
     private IEnumerator SetImageCo(int direction)
     {
-        float duration = 3f;
+        float duration = 1f;
         int steps = 20;
         float stepDuration = duration / steps;
         float moveAmount = - direction * (spacing / steps);
@@ -71,7 +71,7 @@ public class ImageScrollableController : MonoBehaviour
             rectTransform.offsetMin = offsetMin;
             rectTransform.offsetMax = offsetMax;
 
-            yield return new WaitForSeconds(stepDuration);
+            yield return new WaitForSecondsRealtime(stepDuration);
         }
     }
 }
